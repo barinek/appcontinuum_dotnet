@@ -1,0 +1,33 @@
+---
+applications:
+- name: allocations-server
+  instances: 1
+  memory: 256M
+  host: allocations-server
+  domain: cfapps.io
+  buildpack: https://github.com/cloudfoundry/dotnet-core-buildpack.git
+  path: Applications/AllocationsServer/bin/Release/netcoreapp1.1/publish
+
+- name: backlog-server
+  instances: 1
+  memory: 256M
+  host: backlog-server
+  domain: cfapps.io
+  buildpack: https://github.com/cloudfoundry/dotnet-core-buildpack.git
+  path: Applications/BacklogServer/bin/Release/netcoreapp1.1/publish
+
+- name: registration-server
+  instances: 1
+  memory: 256M
+  host: registration-server
+  domain: cfapps.io
+  buildpack: https://github.com/cloudfoundry/dotnet-core-buildpack.git
+  path: Applications/RegistrationServer/bin/Release/netcoreapp1.1/publish
+
+- name: timesheets-server
+  instances: 1
+  memory: 256M
+  host: timesheets-server
+  domain: cfapps.io
+  buildpack: https://github.com/cloudfoundry/dotnet-core-buildpack.git
+  path: Applications/TimesheetsServer/bin/Release/netcoreapp1.1/publish

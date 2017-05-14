@@ -1,0 +1,42 @@
+.continuum_logo {
+
+}
+
+.continuum {
+    margin-top: 50px;
+    margin-bottom: 25px;
+    height: auto;
+    width: auto;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.step-1 {
+    display: block;
+    float: left;
+    width: 75px;
+    height: 75px;
+    text-indent: -5000px;
+    overflow: hidden;
+
+    background: url(../images/icon_tagV1_4x.png) no-repeat bottom left;
+    background-size: 75%;
+}
+
+.info {
+    background-color: #d3d6db;
+    color: #222;
+    padding: 10px 25px 25px 25px;
+    margin: 25px 0px 25px 0px;
+}
+
+.info h3 {
+    color: #222;
+}
+
+.architecture {
+    color: #d3d6db;
+    font-size: 12px;
+    font-weight: 700;
+
+}

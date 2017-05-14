@@ -1,0 +1,11 @@
+bin/
+obj/
+.idea
+*.iml
+*.ipr
+*.iws
+.DS_Store
+.deployment
+
+appcontinuum.userprefs
+appcontinuum.sln

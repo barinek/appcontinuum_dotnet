@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns#">
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="stylesheets/continuum.css"/>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="The application continuum describes the evolution of a cloud native architecture. This website and codebase will make you a better developer.">
+
+    <meta content="summary_large_image" name="twitter:card"/>
+    <meta content=".NET Core Microservices Reference Architecture" name="twitter:title"/>
+    <meta content="The application continuum describes the evolution of a cloud native architecture. This website and codebase will make you a better developer."
+          name="twitter:description"/>
+    <meta content="@barinek" name="twitter:site"/>
+
+    <meta content="origin-when-cross-origin" name="referrer"/>
+    <meta content="NOODP,NOYDIR" name="robots"/>
+
+    <meta content=".NET Core Microservices Reference Architecture"
+          property="og:title"/>
+    <meta content="article" property="og:type"/>
+    <meta content="Application continuum" property="og:site_name"/>
+    <meta content="http://www.appcontinuum.io/images/AC_Logo4x-White2.png"
+          property="og:image"/>
+    <meta content="http://www.appcontinuum.io/"
+          property="og:url"/>
+    <meta content="The application continuum describes the evolution of a cloud native architecture. This website and codebase will make you a better developer."
+          property="og:description"/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>The Application Continuum</title>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div id="header_wrap" class="outer">
+    <header class="inner">
+        <a id="forkme_banner" href="https://github.com/barinek/appcontinuum_dotnet">View on GitHub</a>
+
+        <img src="images/AC_Logo4x-White2.png" alt="" class="continuum_logo">
+        <h2 id="project_tagline">Evolution of a cloud native architecture</h2>
+
+        <section id="downloads">
+            <a class="zip_download_link" href="https://github.com/barinek/appcontinuum_dotnet/zipball/master">Download this
+                project as a .zip file</a>
+            <a class="tar_download_link" href="https://github.com/barinek/appcontinuum_dotnet/tarball/master">Download this
+                project as a tar.gz file</a>
+        </section>
+    </header>
+</div>
+
+<!-- MAIN CONTENT -->
+<div id="main_content_wrap" class="outer">
+    <section id="main_content" class="inner">
+
+
+
+        <h1 class="continuum_msg">
+            .NET Core Microservices Architecture
+        </h1>
+
+        <hr>
+
+        <h3>
+            <a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span aria-hidden="true"
+                                                                                              class="octicon octicon-link"></span></a>Introduction
+        </h3>
+
+        <p>Pardon the dust, the .NET Core docs are work in progres... please see <a href="http://www.appcontinuum.io">appcontinuum.io</a>
+
+        <hr>
+
+        <h3>
+            <a id="architecture" class="anchor" href="#architecture" aria-hidden="true"><span aria-hidden="true"
+                                                                                              class="octicon octicon-link"></span></a>Component Based
+        </h3>
+
+        <p><img class="continuum" src="images/continuum-diagram.png" alt=""></p>
+
+        <hr>
+
+        <h3>
+            <a id="tests" class="anchor" href="#tests" aria-hidden="true"><span aria-hidden="true"
+                                                                                              class="octicon octicon-link"></span></a>Test Server
+        </h3>
+
+<code>
+<pre>
+using System.Threading;
+using Microsoft.AspNetCore.Hosting;
+
+namespace TestSupport
+{
+    public class TestServer<T> where T : class
+    {
+        private readonly int _wait;
+        private readonly Thread _thread;
+        private IWebHost _server;
+
+        public TestServer(string url, int wait)
+        {
+            _wait = wait;
+            _thread = new Thread(() =>
+            {
+                Thread.CurrentThread.IsBackground = true;
+                var builder = new WebHostBuilder()
+                    .UseKestrel()
+                    .UseStartup<T>()
+                    .UseUrls(url);
+                _server = builder.Build();
+                _server.Run();
+            });
+        }
+
+        public void Start()
+        {
+            _thread.Start();
+
+            Thread.Sleep(_wait);
+        }
+
+        public void Stop()
+        {
+            _server.Dispose();
+            _thread.Join();
+        }
+    }
+}
+
+</pre>
+</code>
+
+        <hr>
+
+        <div class="info">
+            <h3>
+
+                <a id="project-structure" class="anchor" href="#project-structure" aria-hidden="true"><span
+                        aria-hidden="true" class="octicon octicon-link"></span></a>Early Design Considerations</h3>
+
+            <p>I tend to start all new projects with the 3 top level directories - Applications, Components, and Databases.
+                I've found that it is easier to start every project with a component based directory structure.
+            </p>
+
+            <pre><code>
+appcontinuum_dotnet
+├── Applications
+├── Components
+├── Databases
+├── manifest.yml
+└── README.md
+</code></pre>
+
+
+        </div>
+
+
+        <h3>
+            <a id="summary" class="anchor" href="#summary" aria-hidden="true"><span aria-hidden="true"
+                                                                                    class="octicon octicon-link"></span></a>Summary
+        </h3>
+
+        <p>That's a wrap! Assuming you're on board with the continuum, I'm hopeful the project has given you insight in
+            a .NET microservices architecture.</p>
+
+
+        <p>Written by <a href="https://github.com/barinek" class="user-mention">@barinek</a></p>
+
+    </section>
+</div>
+
+<!-- FOOTER  -->
+<div id="footer_wrap" class="outer">
+    <footer class="inner">
+        <p class="copyright">The Application Continuum maintained by <a href="https://github.com/barinek">barinek</a>
+        </p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+    </footer>
+</div>
+
+<script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+    try {
+        var pageTracker = _gat._getTracker("UA-68950891-1");
+        pageTracker._trackPageview();
+    } catch (err) {
+    }
+</script>
+
+
+</body>
+</html>
